@@ -54,7 +54,7 @@ typedef struct {
     Reg_Data DataCadastro;
 } Reg_Cliente;
 
-// Prototipação de funções
+// Prototipacao de funcoes
 void Login();
 void Menu_Principal();
 void Menu_Gerenc_Cadastros();
@@ -109,7 +109,7 @@ int main() {
     
     Menu_Principal();
     return 0;
-}
+}//main()...
 
 void Menu_Principal() {
     int op;
@@ -528,3 +528,284 @@ void Relatorio_Geral_Autores() {
         perror("Erro ao abrir o arquivo Autores.dat");
         exit(1);
     }
+    while (fread(&Autor, sizeof(Autor), 1, PontAutores)) {
+        cout << "\n Código: " << Autor.Codigo;
+        cout << "\n Nome: " << Autor.Nome;
+        cout << "\n Data de Cadastro: ";
+        Imprime_Data(Autor.DataCadastro);
+        cout << endl;
+    }
+    fclose(PontAutores);
+    system("pause");
+}
+
+void Relatorio_Geral_Fornecedores() {
+    Reg_Fornecedor Fornecedor;
+    system("cls");
+    cout << "\n ----------------------------";
+    cout << "\n ==== RELATÓRIO DE FORNECEDORES ====";
+    cout << "\n ----------------------------\n";
+    PontFornecedores = fopen("Fornecedores.dat", "rb");
+    if (PontFornecedores == NULL) {
+        perror("Erro ao abrir o arquivo Fornecedores.dat");
+        exit(1);
+    }
+    while (fread(&Fornecedor, sizeof(Fornecedor), 1, PontFornecedores)) {
+        cout << "\n Código: " << Fornecedor.Codigo;
+        cout << "\n Nome: " << Fornecedor.Nome;
+        cout << "\n Data de Cadastro: ";
+        Imprime_Data(Fornecedor.DataCadastro);
+        cout << endl;
+    }
+    fclose(PontFornecedores);
+    system("pause");
+}
+
+void Relatorio_Geral_Clientes() {
+    Reg_Cliente Cliente;
+    system("cls");
+    cout << "\n ----------------------------";
+    cout << "\n ==== RELATÓRIO DE CLIENTES ====";
+    cout << "\n ----------------------------\n";
+    PontClientes = fopen("Clientes.dat", "rb");
+    if (PontClientes == NULL) {
+        perror("Erro ao abrir o arquivo Clientes.dat");
+        exit(1);
+    }
+    while (fread(&Cliente, sizeof(Cliente), 1, PontClientes)) {
+        cout << "\n Código: " << Cliente.Codigo;
+        cout << "\n Nome: " << Cliente.Nome;
+        cout << "\n Data de Cadastro: ";
+        Imprime_Data(Cliente.DataCadastro);
+        cout << endl;
+    }
+    fclose(PontClientes);
+    system("pause");
+}
+
+void Busca_Livro() {
+    long int cod;
+    Reg_Livro Livro;
+    bool encontrado = false;
+    system("cls");
+    cout << "\n ===== BUSCA DE LIVRO POR CÓDIGO =====\n";
+    cout << "Digite o código do livro: ";
+    cin >> cod;
+
+    PontLivros = fopen("Livros.dat", "rb");
+    if (PontLivros != NULL) {
+        while (fread(&Livro, sizeof(Livro), 1, PontLivros)) {
+            if (Livro.Codigo == cod) {
+                cout << "\n Título: " << Livro.Titulo;
+                cout << "\n Estoque: " << Livro.Estoque;
+                cout << "\n Preço de Venda: " << Livro.PrecoVenda;
+                cout << "\n Código do Autor: " << Livro.CodAutor;
+                cout << "\n Data de Cadastro: ";
+                Imprime_Data(Livro.DataCadastro);
+                cout << endl;
+                encontrado = true;
+                break;
+            }
+        }
+        fclose(PontLivros);
+    }
+
+    if (!encontrado) {
+        cout << "\n Livro não encontrado!\n";
+    }
+
+    system("pause");
+}
+
+void Busca_Autor() {
+    long int cod;
+    Reg_Autor Autor;
+    bool encontrado = false;
+    system("cls");
+    cout << "\n ===== BUSCA DE AUTOR POR CÓDIGO =====\n";
+    cout << "Digite o código do autor: ";
+    cin >> cod;
+
+    PontAutores = fopen("Autores.dat", "rb");
+    if (PontAutores != NULL) {
+        while (fread(&Autor, sizeof(Autor), 1, PontAutores)) {
+            if (Autor.Codigo == cod) {
+                cout << "\n Nome: " << Autor.Nome;
+                cout << "\n Data de Cadastro: ";
+                Imprime_Data(Autor.DataCadastro);
+                cout << endl;
+                encontrado = true;
+                break;
+            }
+        }
+        fclose(PontAutores);
+    }
+
+    if (!encontrado) {
+        cout << "\n Autor não encontrado!\n";
+    }
+
+    system("pause");
+}
+
+void Busca_Fornecedor() {
+    long int cod;
+    Reg_Fornecedor Fornecedor;
+    bool encontrado = false;
+    system("cls");
+    cout << "\n ===== BUSCA DE FORNECEDOR POR CÓDIGO =====\n";
+    cout << "Digite o código do fornecedor: ";
+    cin >> cod;
+
+    PontFornecedores = fopen("Fornecedores.dat", "rb");
+    if (PontFornecedores != NULL) {
+        while (fread(&Fornecedor, sizeof(Fornecedor), 1, PontFornecedores)) {
+            if (Fornecedor.Codigo == cod) {
+                cout << "\n Nome: " << Fornecedor.Nome;
+                cout << "\n Data de Cadastro: ";
+                Imprime_Data(Fornecedor.DataCadastro);
+                cout << endl;
+                encontrado = true;
+                break;
+            }
+        }
+        fclose(PontFornecedores);
+    }
+
+    if (!encontrado) {
+        cout << "\n Fornecedor não encontrado!\n";
+    }
+
+    system("pause");
+}
+
+void Busca_Cliente() {
+    long int cod;
+    Reg_Cliente Cliente;
+    bool encontrado = false;
+    system("cls");
+    cout << "\n ===== BUSCA DE CLIENTE POR CÓDIGO =====\n";
+    cout << "Digite o código do cliente: ";
+    cin >> cod;
+
+    PontClientes = fopen("Clientes.dat", "rb");
+    if (PontClientes != NULL) {
+        while (fread(&Cliente, sizeof(Cliente), 1, PontClientes)) {
+            if (Cliente.Codigo == cod) {
+                cout << "\n Nome: " << Cliente.Nome;
+                cout << "\n Data de Cadastro: ";
+                Imprime_Data(Cliente.DataCadastro);
+                cout << endl;
+                encontrado = true;
+                break;
+            }
+        }
+        fclose(PontClientes);
+    }
+
+    if (!encontrado) {
+        cout << "\n Cliente não encontrado!\n";
+    }
+
+    system("pause");
+}
+
+void Atualiza_Estoque() {
+    long int cod;
+    int novoEstoque;
+    Reg_Livro Livro;
+    bool encontrado = false;
+
+    system("cls");
+    cout << "\n ===== ATUALIZAÇÃO DE ESTOQUE =====\n";
+    cout << "Digite o código do livro: ";
+    cin >> cod;
+
+    FILE* temp = fopen("Temp.dat", "wb");
+    PontLivros = fopen("Livros.dat", "rb");
+
+    if (PontLivros != NULL && temp != NULL) {
+        while (fread(&Livro, sizeof(Livro), 1, PontLivros)) {
+            if (Livro.Codigo == cod) {
+                cout << "Estoque atual: " << Livro.Estoque << endl;
+                cout << "Novo estoque: ";
+                cin >> novoEstoque;
+                Livro.Estoque = novoEstoque;
+                encontrado = true;
+            }
+            fwrite(&Livro, sizeof(Livro), 1, temp);
+        }
+        fclose(PontLivros);
+        fclose(temp);
+        remove("Livros.dat");
+        rename("Temp.dat", "Livros.dat");
+    }
+
+    if (encontrado) {
+        cout << "\n Estoque atualizado com sucesso!\n";
+    } else {
+        cout << "\n Livro não encontrado!\n";
+    }
+
+    system("pause");
+}
+
+long int Busca_Livro_Cod(long int cod) {
+    Reg_Livro Livro;
+    PontLivros = fopen("Livros.dat", "rb");
+    if (PontLivros != NULL) {
+        while (fread(&Livro, sizeof(Livro), 1, PontLivros)) {
+            if (Livro.Codigo == cod) {
+                fclose(PontLivros);
+                return Livro.Codigo;
+            }
+        }
+        fclose(PontLivros);
+    }
+    return -1;
+}
+
+long int Busca_Autor_Cod(long int cod) {
+    Reg_Autor Autor;
+    PontAutores = fopen("Autores.dat", "rb");
+    if (PontAutores != NULL) {
+        while (fread(&Autor, sizeof(Autor), 1, PontAutores)) {
+            if (Autor.Codigo == cod) {
+                fclose(PontAutores);
+                return Autor.Codigo;
+            }
+        }
+        fclose(PontAutores);
+    }
+    return -1;
+}
+
+long int Busca_Fornecedor_Cod(long int cod) {
+    Reg_Fornecedor Fornecedor;
+    PontFornecedores = fopen("Fornecedores.dat", "rb");
+    if (PontFornecedores != NULL) {
+        while (fread(&Fornecedor, sizeof(Fornecedor), 1, PontFornecedores)) {
+            if (Fornecedor.Codigo == cod) {
+                fclose(PontFornecedores);
+                return Fornecedor.Codigo;
+            }
+        }
+        fclose(PontFornecedores);
+    }
+    return -1;
+}
+
+long int Busca_Cliente_Cod(long int cod) {
+    Reg_Cliente Cliente;
+    PontClientes = fopen("Clientes.dat", "rb");
+    if (PontClientes != NULL) {
+        while (fread(&Cliente, sizeof(Cliente), 1, PontClientes)) {
+            if (Cliente.Codigo == cod) {
+                fclose(PontClientes);
+                return Cliente.Codigo;
+            }
+        }
+        fclose(PontClientes);
+    }
+    return -1;
+}
